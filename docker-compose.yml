@@ -1,0 +1,19 @@
+demo-mysql:
+  image: mysql:latest
+  environment:
+    - MYSQL_ROOT_PASSWORD=root
+    - MYSQL_DATABASE=demo
+    - MYSQL_USER=docker
+    - MYSQL_PASSWORD=docker
+    - COMPOSE_HTTP_TIMEOUT=200
+  expose:
+    - "3306"
+  stdin_open: true
+  tty: true
+
+spring-boot-jpa-docker-webapp:
+  image: saravananshun/spring-boot-jpa-docker-webapp
+  links:
+    - demo-mysql:demomysql
+  ports:
+    - 8080:8080
